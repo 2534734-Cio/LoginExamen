@@ -12,6 +12,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,7 +28,10 @@ import com.example.login.network.AuthService
 import kotlinx.coroutines.launch
 
 @Composable
-fun LoginScreen(onLoginExitoso: (LoginResponse) -> Unit) {
+fun LoginScreen(
+    onLoginExitoso: (LoginResponse) -> Unit,
+    onProbarGps: () -> Unit = {}
+) {
     var usuario by remember { mutableStateOf("") }
     var contrasena by remember { mutableStateOf("") }
     var error by remember { mutableStateOf<String?>(null) }
@@ -89,6 +93,11 @@ fun LoginScreen(onLoginExitoso: (LoginResponse) -> Unit) {
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(if (cargando) "Entrando..." else "Entrar")
+        }
+        Spacer(Modifier.height(8.dp))
+
+        TextButton(onClick = onProbarGps) {
+            Text("Probar sensor GPS")
         }
     }
 }

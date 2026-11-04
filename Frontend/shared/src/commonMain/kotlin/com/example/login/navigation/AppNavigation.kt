@@ -11,6 +11,7 @@ import com.example.login.model.toRol
 import com.example.login.ui.AdminScreen
 import com.example.login.ui.ClienteScreen
 import com.example.login.ui.DoctorScreen
+import com.example.login.ui.GpsScreen
 import com.example.login.ui.LoginScreen
 import com.example.login.ui.SupervisorScreen
 import com.example.login.ui.VendedorScreen
@@ -21,9 +22,16 @@ fun AppNavigation() {
     val actual = sesion
     val nombre = actual?.name ?: ""
     val salir = { sesion = null }
+    // true = se muestra la pantalla de prueba del GPS
+    var mostrarGps by remember { mutableStateOf(false) }
 
-    if (actual == null) {
-        LoginScreen(onLoginExitoso = { sesion = it })
+    if (mostrarGps) {
+        GpsScreen(onRegresar = { mostrarGps = false })
+    } else if (actual == null) {
+        LoginScreen(
+            onLoginExitoso = { sesion = it },
+            onProbarGps = { mostrarGps = true }
+        )
     } else {
         when (actual.role?.toRol()) {
             Rol.ADMINISTRADOR -> AdminScreen(nombre, salir)
@@ -34,4 +42,4 @@ fun AppNavigation() {
             null -> LoginScreen(onLoginExitoso = { sesion = it })
         }
     }
-}
+}

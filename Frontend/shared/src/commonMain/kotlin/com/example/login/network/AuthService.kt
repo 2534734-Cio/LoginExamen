@@ -21,13 +21,20 @@ class AuthService {
     }
 
     suspend fun login(username: String, password: String): LoginResponse {
+        val url = "${baseUrl()}/login"
+        // Logging: estos mensajes aparecen en Logcat (busca LOGIN_DEBUG)
+        println("LOGIN_DEBUG -> Petición enviada a $url con usuario: $username")
         return try {
-            val respuesta = client.post("${baseUrl()}/login") {
+            val respuesta = client.post(url) {
                 contentType(ContentType.Application.Json)
                 setBody(LoginRequest(username, password))
             }
-            respuesta.body<LoginResponse>()
+            println("LOGIN_DEBUG -> Código HTTP recibido: ${respuesta.status.value}")
+            val datos = respuesta.body<LoginResponse>()
+            println("LOGIN_DEBUG -> Respuesta del servidor: $datos")
+            datos
         } catch (e: Exception) {
+            println("LOGIN_DEBUG -> ERROR: ${e::class.simpleName} - ${e.message}")
             LoginResponse(success = false, message = "No se pudo conectar: ${e::class.simpleName} - ${e.message}")
         }
     }
