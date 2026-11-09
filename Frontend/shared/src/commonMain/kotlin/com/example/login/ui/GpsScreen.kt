@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.login.sensor.rememberSensorGps
@@ -24,6 +25,7 @@ private fun Double.cincoDecimales(): Double = (this * 100000).roundToLong() / 10
 @Composable
 fun GpsScreen(onRegresar: () -> Unit) {
     val gps = rememberSensorGps()
+    val abrirEnlace = LocalUriHandler.current
 
     Column(
         modifier = Modifier
@@ -59,6 +61,19 @@ fun GpsScreen(onRegresar: () -> Unit) {
                 Text("Longitud: ${ubicacion.longitud.cincoDecimales()}", style = MaterialTheme.typography.titleMedium)
                 Spacer(Modifier.height(8.dp))
                 Text("Precisión: ± ${ubicacion.precisionMetros.toInt()} m")
+                Spacer(Modifier.height(16.dp))
+
+                Button(onClick = {
+                    val enlace = "https://www.google.com/maps/search/?api=1&query=" +
+                        "${ubicacion.latitud},${ubicacion.longitud}"
+                    try {
+                        abrirEnlace.openUri(enlace)
+                    } catch (e: Exception) {
+                        println("GPS_DEBUG -> No se pudo abrir el mapa: ${e.message}")
+                    }
+                }) {
+                    Text("Ver en el mapa")
+                }
             }
         }
 
