@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.login.navigation.AppNavigation
 import com.example.login.sensor.rememberNivelDeLuz
-
+//Hola
 @Composable
 fun App() {
     val luz = rememberNivelDeLuz()
