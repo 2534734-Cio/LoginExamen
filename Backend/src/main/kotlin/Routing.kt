@@ -17,7 +17,7 @@ fun Application.configureRouting() {
 
     routing {
         get("/") {
-            call.respondText("Backend activo - versión SSH 2")
+            call.respondText("Backend activo - JesusErnesto12"")
         }
 
         post("/login") {
