@@ -22,7 +22,7 @@ fun App() {
     val modoOscuro = luz != null && luz < 10f
 
     val textoSensor = when {
-        luz == null -> "Sensor de luz no disponible"
+        luz == null -> "Sensor de luz no autorizado"
         modoOscuro -> "Luz ambiental: ${luz.toInt()} lx (modo oscuro)"
         else -> "Luz ambiental: ${luz.toInt()} lx"
     }
