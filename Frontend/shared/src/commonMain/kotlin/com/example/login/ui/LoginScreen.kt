@@ -48,14 +48,9 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Iniciar sesión", style = MaterialTheme.typography.headlineMedium)
-        Spacer(Modifier.height(8.dp))
-Text(
-   text = "Roberto Tolentino",
-    style =MaterialTheme.typography.titleMedium,
-    color = MaterialTheme.colorScheme.primary
-)
-        Spacer(Modifier.height(24.dp))
+        Text("Iniciar sesión Roberto Tolentino", style = MaterialTheme.typography.headlineMedium)
+        Spacer(Modifier.height(24.dp))//Marco Roberto Tolentino Diaz
+
         OutlinedTextField(
             value = usuario,
             onValueChange = { usuario = it },
