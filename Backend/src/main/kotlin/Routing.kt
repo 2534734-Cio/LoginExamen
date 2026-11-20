@@ -16,7 +16,7 @@ fun Application.configureRouting() {
 
     routing {
         get("/") {
-            call.respondText("Backend activo - JesusErnesto12"")
+            call.respondText("Backend activo - JesusErnesto12")
         }
 
         post("/login") {
