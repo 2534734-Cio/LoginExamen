@@ -6,7 +6,6 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.json.Json
-//Prueba examen Jesus Ernesto Romero Hernandez
 fun cargarUsuarios(): List<User> {
     val texto = object {}.javaClass.getResource("/users.json")!!.readText()
     return Json.decodeFromString(texto)
@@ -17,7 +16,7 @@ fun Application.configureRouting() {
 
     routing {
         get("/") {
-            call.respondText("Backend activo - versión SSH 2")
+            call.respondText("Backend activo - JesusErnesto12"")
         }
 
         post("/login") {
