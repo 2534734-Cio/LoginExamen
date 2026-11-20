@@ -6,6 +6,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.json.Json
+
 fun cargarUsuarios(): List<User> {
     val texto = object {}.javaClass.getResource("/users.json")!!.readText()
     return Json.decodeFromString(texto)
