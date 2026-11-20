@@ -1,11 +1,13 @@
-FROM gradle:9.5.1-jdk17 AS build
-COPY --chown=gradle:gradle . /home/gradle/src
-WORKDIR /home/gradle/src/Backend
-RUN chmod +x gradlew && ./gradlew installDist --no-daemon
-
-FROM eclipse-temurin:17-jre-alpine
-EXPOSE 8080
-RUN mkdir /app
-COPY --from=build /home/gradle/src/Backend/build/install/ /app/
+FROM eclipse-temurin:25-jdk AS build
+COPY --from=eclipse-temurin:21-jdk /opt/java/openjdk /opt/jdk21
 WORKDIR /app
-CMD ["sh", "-c", "$(ls /app/*/bin | head -1)"]
+COPY Backend/ .
+RUN chmod +x gradlew && \
+    ./gradlew installDist --no-daemon -Porg.gradle.java.installations.paths=/opt/jdk21
+
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=build /app/build/install/backend /app
+ENV JAVA_OPTS="-Xmx300m"
+EXPOSE 8080
+CMD ["/app/bin/backend"]

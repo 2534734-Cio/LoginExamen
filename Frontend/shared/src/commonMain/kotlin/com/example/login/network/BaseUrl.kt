@@ -1,3 +1,3 @@
 package com.example.login.network
 
-expect fun baseUrl(): String
+expect fun baseUrl(): String = "https://loginexamen.onrender.com"
